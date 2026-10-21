@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>David Jaqua | Software Engineer & Photographer Gallery</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <h1 class="logo">David Jaqua</h1>
+    <p class="tagline">Software Engineer & Photographer</p>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="about.html">About</a>
+      <a href="platforms.html">Platforms</a>
+    </nav>
+  </header>
+
+  <main class="gallery-container">
+    <figure class="gallery-item">
+      <img src="https://portfolio-assets.dljaqua.workers.dev/images/photo1.jpg" alt="Eldorado Canyon State Park Boulder, CO" loading="lazy">
+      <figcaption class="overlay">
+        <h3>Eldorado Canyon State Park</h3>
+        <p>Boulder, CO</p>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery-item">
+      <img src="https://portfolio-assets.dljaqua.workers.dev/images/photo2.jpg" alt="High Bridge Stillwater, MN" loading="lazy">
+      <figcaption class="overlay">
+        <h3>High Bridge</h3>
+        <p>Stillwater, MN</p>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery-item">
+      <img src="https://portfolio-assets.dljaqua.workers.dev/images/photo3.jpg" alt="Minneopa State Park Waterfall Makato, MN" loading="lazy">
+      <figcaption class="overlay">
+        <h3>Minneopa State Park Waterfall</h3>
+        <p>Mankato, MN</p>
+      </figcaption>
+    </figure>
+
+    <!-- Row 2 -->
+
+    <figure class="gallery-item">
+      <img src="https://portfolio-assets.dljaqua.workers.dev/images/photo4.jpg" alt="Forest Lake, MN" loading="lazy">
+      <figcaption class="overlay">
+        <h3>Lil Kitty</h3>
+        <p>Forest Lake, MN</p>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery-item">
+      <img src="https://portfolio-assets.dljaqua.workers.dev/images/photo5.jpg" alt="Amanita Mushroom Grand Marais, MN" loading="lazy">
+      <figcaption class="overlay">
+        <h3>Amanita Mushroom</h3>
+        <p>Grand Marais, MN</p>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery-item">
+      <img src="https://portfolio-assets.dljaqua.workers.dev/images/photo6.jpg" alt="Damp Fall Leaves Minneapolis, MN" loading="lazy">
+      <figcaption class="overlay">
+        <h3>Damp Fall Leaves</h3>
+        <p>Minneapolis, MN</p>
+      </figcaption>
+    </figure>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 David Jaqua. All rights reserved.</p>
+  </footer>
+
+  <!-- Lightbox Modal Container -->
+  <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close image view">&times;</button>
+    <div class="lightbox-content-wrapper">
+      <img id="lightbox-img" src="" alt="Enlarged view">
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

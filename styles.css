@@ -1,0 +1,487 @@
+/* ==========================================
+   1. RESET & CSS VARIABLES
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Dark Blue & Obsidian Palette */
+  --bg-color: #080a0f;         /* Deep obsidian black with a blue tint */
+  --card-bg: #111622;          /* Dark slate blue for cards & containers */
+  --card-hover: #161d2d;       /* Slightly lighter navy tint for hover states */
+  --border-color: #1b2436;     /* Subtle dark blue-gray border */
+  
+  --text-main: #e6edf3;        /* Bright icy off-white for text */
+  --text-muted: #8b9bb4;       /* Cool slate for secondary details */
+  --accent: #64b5f6;           /* Vibrant icy blue accent */
+  --accent-bright: #90caf9;    /* Lighter blue glow for active/hover states */
+  
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  line-height: 1.6;
+  padding: 2rem 1.5rem;
+  max-width: 1600px; /* Expanded width to give gallery cards ample space */
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* ==========================================
+   2. SITE HEADER & NAVIGATION
+   ========================================== */
+.site-header {
+  text-align: center;
+  padding: 2rem 0 3rem;
+}
+
+.logo {
+  font-size: 2.2rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-main);
+}
+
+.tagline {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--accent-bright);
+}
+
+.nav-links a.active {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 2px;
+}
+
+/* ==========================================
+   3. PAGE LAYOUT CONTAINERS
+   ========================================== */
+.content-container {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.content-container.wide {
+  max-width: 1100px;
+}
+
+.content-container.centered {
+  text-align: center;
+}
+
+.section-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* ==========================================
+   4. GALLERY GRID & ITEMS
+   ========================================== */
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default 3-column layout (Home page) */
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+/* 4-Column Layout Variant (Gallery page) */
+.gallery-container.gallery-page-grid {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  cursor: pointer;
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover {
+  border-color: rgba(100, 181, 246, 0.35);
+  box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.7), 
+              0 0 20px rgba(100, 181, 246, 0.08);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.06);
+}
+
+/* Hover Overlay Caption */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top, 
+    rgba(8, 10, 15, 0.92) 0%, 
+    rgba(17, 22, 34, 0.3) 55%, 
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.overlay h3,
+.overlay p {
+  transform: translateY(12px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-item:hover .overlay {
+  opacity: 1;
+}
+
+.gallery-item:hover .overlay h3,
+.gallery-item:hover .overlay p {
+  transform: translateY(0);
+}
+
+.overlay h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.overlay p {
+  font-size: 0.85rem;
+  color: var(--accent-bright);
+  margin-top: 0.2rem;
+}
+
+/* ==========================================
+   5. LIGHTBOX MODAL
+   ========================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(8, 10, 15, 0.95);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 2rem;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content-wrapper {
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lightbox-content-wrapper img {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
+  border: 1px solid var(--border-color);
+}
+
+.lightbox-caption {
+  margin-top: 1rem;
+}
+
+.lightbox-caption h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-main);
+  letter-spacing: 0.5px;
+}
+
+.lightbox-caption p {
+  font-size: 0.9rem;
+  color: var(--accent-bright);
+  margin-top: 0.2rem;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 1001;
+}
+
+.lightbox-close:hover {
+  color: var(--accent-bright);
+}
+
+/* ==========================================
+   6. ABOUT PAGE LAYOUT
+   ========================================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2.5rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+  border: 1px solid var(--border-color);
+}
+
+.about-text h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.about-text p {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+/* ==========================================
+   7. PLATFORMS PAGE LAYOUT
+   ========================================== */
+.connect-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.connect-header h2 {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: var(--text-main);
+  margin-top: 0.25rem;
+}
+
+.connect-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.social-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-card:hover {
+  border-color: rgba(100, 181, 246, 0.4);
+  background-color: var(--card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6),
+              0 0 15px rgba(100, 181, 246, 0.08);
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.social-card:hover .card-icon {
+  color: var(--accent-bright);
+  transform: scale(1.08);
+}
+
+.card-info {
+  flex: 1;
+}
+
+.card-info h3 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.card-info p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.arrow-icon {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.social-card:hover .arrow-icon {
+  color: var(--accent-bright);
+  transform: translate(3px, -3px);
+}
+
+/* Direct Email Block */
+.direct-email-block {
+  text-align: center;
+  padding: 1.75rem;
+  background-color: rgba(17, 22, 34, 0.5);
+  border: 1px dashed var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.email-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.email-link {
+  color: var(--accent);
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.email-link:hover {
+  color: var(--accent-bright);
+}
+
+/* ==========================================
+   8. SITE FOOTER
+   ========================================== */
+.site-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding: 2rem 0 1rem;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ==========================================
+   9. RESPONSIVE BREAKPOINTS
+   ========================================== */
+@media (max-width: 1200px) {
+  .gallery-container.gallery-page-grid {
+    grid-template-columns: repeat(3, 1fr); /* 4-col falls back to 3-col on laptops */
+  }
+}
+
+@media (max-width: 1024px) {
+  .gallery-container {
+    grid-template-columns: repeat(2, 1fr); /* Home grid falls back to 2-col on tablets */
+  }
+}
+
+@media (max-width: 850px) {
+  .gallery-container.gallery-page-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .gallery-container,
+  .gallery-container.gallery-page-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+    gap: 1.25rem;
+  }
+
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
